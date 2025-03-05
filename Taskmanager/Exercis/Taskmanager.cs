@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +13,7 @@ namespace Exercis
         private const string UsersFilePath = "C:\\Users\\Administrator\\Desktop\\users.csv";
         private const string ProjectsFilePath = "C:\\Users\\Administrator\\Desktop\\projects.csv";
         private const string TasksFilePath = "C:\\Users\\Administrator\\Desktop\\tasks.csv";
+        private const string CommentsFilePath = "C:\\Users\\Administrator\\Desktop\\comments.csv";
 
         public TaskManager()
         {
@@ -239,7 +240,7 @@ namespace Exercis
             Console.WriteLine("\nAll Tasks:");
             foreach (var project in projects)
             {
-                Console.WriteLine($"\n📌 Project: {project.ProjectName}");
+                Console.WriteLine($"\nProject: {project.ProjectName}");
 
                 if (project.Tasks.Count == 0)
                 {
@@ -250,8 +251,51 @@ namespace Exercis
                 foreach (var task in project.Tasks)
                 {
                     string assignedTo = task.AssignedTo != null ? task.AssignedTo.Name : "Unassigned";
-                    Console.WriteLine($"   🔹 Task: {task.TaskName} | Status: {task.Status} | Assigned To: {assignedTo}");
+                    Console.WriteLine($"   Task: {task.TaskName} | Status: {task.Status} | Assigned To: {assignedTo}");
                 }
+            }
+        }
+
+        public void AddCommentToProject()
+        {
+            Console.Write("Enter Project Name: ");
+            string projectName = Console.ReadLine();
+            Project project = projects.Find(p => p.ProjectName == projectName);
+            if (project == null)
+            {
+                Console.WriteLine("Project Not Found!");
+                return;
+            }
+
+            Console.Write("Enter Comment: ");
+            string commentText = Console.ReadLine();
+            Comment comment = new Comment(commentText, DateTime.Now);
+            project.Comments.Add(comment);
+            Console.WriteLine("Comment Added Successfully!");
+            SaveData();
+        }
+
+        public void ViewProjectComments()
+        {
+            Console.Write("Enter Project Name: ");
+            string projectName = Console.ReadLine();
+            Project project = projects.Find(p => p.ProjectName == projectName);
+            if (project == null)
+            {
+                Console.WriteLine("Project Not Found!");
+                return;
+            }
+
+            if (project.Comments.Count == 0)
+            {
+                Console.WriteLine("No comments available for this project.");
+                return;
+            }
+
+            Console.WriteLine($"\nComments for Project: {project.ProjectName}");
+            foreach (var comment in project.Comments)
+            {
+                Console.WriteLine($"- {comment.Text} (Posted on: {comment.DatePosted})");
             }
         }
 
@@ -260,6 +304,7 @@ namespace Exercis
             SaveUsers();
             SaveProjects();
             SaveTasks();
+            SaveComments();
         }
 
         private void LoadData()
@@ -267,19 +312,15 @@ namespace Exercis
             LoadUsers();
             LoadProjects();
             LoadTasks();
+            LoadComments();
         }
 
         private void SaveUsers()
         {
             try
             {
-                using (StreamWriter writer = new StreamWriter(UsersFilePath))
-                {
-                    foreach (var user in users)
-                    {
-                        writer.WriteLine($"{user.Name},{user.Role}");
-                    }
-                }
+                var lines = users.Select(user => $"{user.Name},{user.Role}").ToList();
+                File.WriteAllLines(UsersFilePath, lines);
             }
             catch (Exception ex)
             {
@@ -293,16 +334,13 @@ namespace Exercis
             {
                 try
                 {
-                    using (StreamReader reader = new StreamReader(UsersFilePath))
+                    var lines = File.ReadAllLines(UsersFilePath);
+                    foreach (var line in lines)
                     {
-                        string line;
-                        while ((line = reader.ReadLine()) != null)
+                        var parts = line.Split(',');
+                        if (parts.Length == 2 && Enum.TryParse(parts[1], out UserRole role))
                         {
-                            var parts = line.Split(',');
-                            if (parts.Length == 2 && Enum.TryParse(parts[1], out UserRole role))
-                            {
-                                users.Add(new User(parts[0], role));
-                            }
+                            users.Add(new User(parts[0], role));
                         }
                     }
                 }
@@ -317,14 +355,12 @@ namespace Exercis
         {
             try
             {
-                using (StreamWriter writer = new StreamWriter(ProjectsFilePath))
+                var lines = projects.Select(project =>
                 {
-                    foreach (var project in projects)
-                    {
-                        string managerName = project.ProjectManager != null ? project.ProjectManager.Name : "";
-                        writer.WriteLine($"{project.ProjectName},{managerName}");
-                    }
-                }
+                    string managerName = project.ProjectManager != null ? project.ProjectManager.Name : "";
+                    return $"{project.ProjectName},{managerName}";
+                }).ToList();
+                File.WriteAllLines(ProjectsFilePath, lines);
             }
             catch (Exception ex)
             {
@@ -338,21 +374,18 @@ namespace Exercis
             {
                 try
                 {
-                    using (StreamReader reader = new StreamReader(ProjectsFilePath))
+                    var lines = File.ReadAllLines(ProjectsFilePath);
+                    foreach (var line in lines)
                     {
-                        string line;
-                        while ((line = reader.ReadLine()) != null)
+                        var parts = line.Split(',');
+                        if (parts.Length == 2)
                         {
-                            var parts = line.Split(',');
-                            if (parts.Length == 2)
+                            var project = new Project(parts[0]);
+                            if (!string.IsNullOrEmpty(parts[1]))
                             {
-                                var project = new Project(parts[0]);
-                                if (!string.IsNullOrEmpty(parts[1]))
-                                {
-                                    project.ProjectManager = users.Find(u => u.Name == parts[1]);
-                                }
-                                projects.Add(project);
+                                project.ProjectManager = users.Find(u => u.Name == parts[1]);
                             }
+                            projects.Add(project);
                         }
                     }
                 }
@@ -367,17 +400,16 @@ namespace Exercis
         {
             try
             {
-                using (StreamWriter writer = new StreamWriter(TasksFilePath))
+                var lines = new List<string>();
+                foreach (var project in projects)
                 {
-                    foreach (var project in projects)
+                    foreach (var task in project.Tasks)
                     {
-                        foreach (var task in project.Tasks)
-                        {
-                            string assignedTo = task.AssignedTo != null ? task.AssignedTo.Name : "";
-                            writer.WriteLine($"{project.ProjectName},{task.TaskName},{task.Description},{assignedTo},{task.Status}");
-                        }
+                        string assignedTo = task.AssignedTo != null ? task.AssignedTo.Name : "";
+                        lines.Add($"{project.ProjectName},{task.TaskName},{task.Description},{assignedTo},{task.Status}");
                     }
                 }
+                File.WriteAllLines(TasksFilePath, lines);
             }
             catch (Exception ex)
             {
@@ -391,24 +423,21 @@ namespace Exercis
             {
                 try
                 {
-                    using (StreamReader reader = new StreamReader(TasksFilePath))
+                    var lines = File.ReadAllLines(TasksFilePath);
+                    foreach (var line in lines)
                     {
-                        string line;
-                        while ((line = reader.ReadLine()) != null)
+                        var parts = line.Split(',');
+                        if (parts.Length == 5 && Enum.TryParse(parts[4], out TaskStatus status))
                         {
-                            var parts = line.Split(',');
-                            if (parts.Length == 5 && Enum.TryParse(parts[4], out TaskStatus status))
+                            var project = projects.Find(p => p.ProjectName == parts[0]);
+                            if (project != null)
                             {
-                                var project = projects.Find(p => p.ProjectName == parts[0]);
-                                if (project != null)
+                                var task = new TaskItem(parts[1], parts[2])
                                 {
-                                    var task = new TaskItem(parts[1], parts[2])
-                                    {
-                                        Status = status,
-                                        AssignedTo = users.Find(u => u.Name == parts[3])
-                                    };
-                                    project.Tasks.Add(task);
-                                }
+                                    Status = status,
+                                    AssignedTo = users.Find(u => u.Name == parts[3])
+                                };
+                                project.Tasks.Add(task);
                             }
                         }
                     }
@@ -416,6 +445,54 @@ namespace Exercis
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error loading tasks: {ex.Message}");
+                }
+            }
+        }
+
+        private void SaveComments()
+        {
+            try
+            {
+                var lines = new List<string>();
+                foreach (var project in projects)
+                {
+                    foreach (var comment in project.Comments)
+                    {
+                        lines.Add($"{project.ProjectName},{comment.Text},{comment.DatePosted}");
+                    }
+                }
+                File.WriteAllLines(CommentsFilePath, lines);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving comments: {ex.Message}");
+            }
+        }
+
+        private void LoadComments()
+        {
+            if (File.Exists(CommentsFilePath))
+            {
+                try
+                {
+                    var lines = File.ReadAllLines(CommentsFilePath);
+                    foreach (var line in lines)
+                    {
+                        var parts = line.Split(',');
+                        if (parts.Length == 3 && DateTime.TryParse(parts[2], out DateTime datePosted))
+                        {
+                            var project = projects.Find(p => p.ProjectName == parts[0]);
+                            if (project != null)
+                            {
+                                var comment = new Comment(parts[1], datePosted);
+                                project.Comments.Add(comment);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error loading comments: {ex.Message}");
                 }
             }
         }
@@ -440,6 +517,7 @@ namespace Exercis
         public List<User> Developers { get; set; } = new List<User>();
         public List<User> QAs { get; set; } = new List<User>();
         public List<TaskItem> Tasks { get; set; } = new List<TaskItem>();
+        public List<Comment> Comments { get; set; } = new List<Comment>();
 
         public Project(string projectName)
         {
@@ -458,6 +536,18 @@ namespace Exercis
         {
             TaskName = taskName;
             Description = description;
+        }
+    }
+
+    public class Comment
+    {
+        public string Text { get; set; }
+        public DateTime DatePosted { get; set; }
+
+        public Comment(string text, DateTime datePosted)
+        {
+            Text = text;
+            DatePosted = datePosted;
         }
     }
 
