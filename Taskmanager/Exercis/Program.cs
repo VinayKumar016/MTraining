@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Exercis
 {
@@ -23,7 +24,9 @@ namespace Exercis
                 Console.WriteLine("6. Assign Task to Developer");
                 Console.WriteLine("7. Update Task Status");
                 Console.WriteLine("8. View All Tasks");
-                Console.WriteLine("9. Exit");
+                Console.WriteLine("9. Add Comment to Project");
+                Console.WriteLine("10. View Project Comments");
+                Console.WriteLine("11. Exit");
                 Console.Write("Choose an option: ");
 
                 string choice = Console.ReadLine();
@@ -38,7 +41,9 @@ namespace Exercis
                     case "6": taskManager.AssignTask(); break;
                     case "7": taskManager.UpdateTaskStatus(); break;
                     case "8": taskManager.ViewAllTasks(); break;
-                    case "9": return;
+                    case "9": taskManager.AddCommentToProject(); break;
+                    case "10": taskManager.ViewProjectComments(); break;
+                    case "11": return;
                     default: Console.WriteLine("Invalid choice! Try again."); break;
                 }
             }
