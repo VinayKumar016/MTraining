@@ -1,0 +1,7 @@
+C:\Users\Administrator\Desktop\dotNet\Exercis\Exercis\bin\Debug\Exercis.exe.config
+C:\Users\Administrator\Desktop\dotNet\Exercis\Exercis\bin\Debug\Exercis.exe
+C:\Users\Administrator\Desktop\dotNet\Exercis\Exercis\bin\Debug\Exercis.pdb
+C:\Users\Administrator\Desktop\dotNet\Exercis\Exercis\obj\Debug\Exercis.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\dotNet\Exercis\Exercis\obj\Debug\Exercis.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\dotNet\Exercis\Exercis\obj\Debug\Exercis.exe
+C:\Users\Administrator\Desktop\dotNet\Exercis\Exercis\obj\Debug\Exercis.pdb
