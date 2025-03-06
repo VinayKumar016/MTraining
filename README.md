@@ -1,1 +1,1 @@
-# Mphasis Training Exercise
+# Training Exercise
