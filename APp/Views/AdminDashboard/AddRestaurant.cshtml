@@ -1,0 +1,84 @@
+﻿@using FooddeliveryApp
+@model AdminDashboardBiewModel
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h3>Add New Restaurant</h3>
+<hr />
+<form method="post">
+<div>
+        <input type="text" id="rrname" name="rest.rname" placeholder="Enter Restaurant Name" required />
+   
+</div>
+<div>
+        <input type="text" id="rloc" name="rest.rlocation" placeholder="Enter Restaurant Location" required />
+</div>
+
+<div>
+    <div>
+        <lable for ="rest.ownerid">owner: </lable>
+            <select id="rowner" name="rest.ownerid" required>
+                <option value="">Select Owner</option>
+                @foreach (usersDTO itm in Model.users)
+                {
+                    <option value=@itm.userid>@itm.uname</option>
+                }
+            </select>
+    </div>
+</div>
+
+<div>
+    <input type="submit" value="Add New Restaurant" />
+    
+</div>
+</form>
+
+<style>
+    /* AddRestaurant.css */
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+
+        form div {
+            margin-bottom: 15px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        form input[type="text"],
+        form select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        form input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            form input[type="submit"]:hover {
+                background-color: #45a049;
+            }
+
+</style>

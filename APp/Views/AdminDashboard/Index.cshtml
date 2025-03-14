@@ -1,0 +1,135 @@
+﻿@using FooddeliveryApp;
+@model AdminDashboardBiewModel
+
+@{
+    
+}
+<div class="container">
+    <h3>Admin Dashboard</h3>
+    <hr />
+    <a href="/AdminDashboard/AddUser" class="btn">Add New User</a>
+    <h4>User List:</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Location</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (usersDTO itm in Model.users)
+            {
+                <tr>
+                    <td>@itm.uname</td>
+                    <td>@itm.roledal</td>
+                    <td>@itm.ulocation</td>
+                    <td>
+                        <div>
+                            <a href="/AdminDashboard/DeleteUser?Id=@itm.userid">Delete</a> |
+                            <a href="EditUser?Id=@itm.userid">Edit</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="/AdminDashboard/AddRestaurant" class="btn">Add New Restaurant</a>
+    <h4>Restaurant List:</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Restaurant Name</th>
+                <th>Restaurant Location</th>
+                <th>Restaurant Owner</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (restaurantDTO restaurantDTO in Model.rest)
+            {
+                <tr>
+                    <td>@restaurantDTO.rname</td>
+                    <td>@restaurantDTO.rlocation</td>
+                    <td>@restaurantDTO.ownername</td>
+                    <td>
+                        <div>
+                            <a href="/AdminDashboard/DeleteRestaurant?Id=@restaurantDTO.resid">Delete</a> |
+                            <a href="/AdminDashboard/EditRestaurant?Id=@restaurantDTO.resid">Edit</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h3, h4 {
+        text-align: center;
+        color: #333;
+    }
+
+    hr {
+        border: 1px solid #ddd;
+    }
+
+    a.btn {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+        a.btn:hover {
+            background-color: #0056b3;
+        }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    div a {
+        color: #007bff;
+        text-decoration: none;
+        margin-right: 10px;
+    }
+
+        div a:hover {
+            text-decoration: underline;
+        }
+</style>

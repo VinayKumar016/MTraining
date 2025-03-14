@@ -1,0 +1,96 @@
+﻿@using FooddeliveryApp
+@model AdminDashboardBiewModel
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h3>Add New User</h3>
+<hr />
+<form method="post">
+<div>
+        <label for="unm">User Name:</label>
+    <input type="text" id="unm" name="users.uname" placeholder="User Display Name" required />
+</div>
+<div>
+        <label for="uemail">Email:</label>
+    <input type="email" id="uemail" name="users.email" placeholder="User Email" required />
+</div>
+<div>
+        <label for="upassword">Password:</label>
+    <input type="password" id="upassword" name="users.password" placeholder="User Password" required />
+</div>
+<div>
+        <label for="uloc">Location:</label>
+    <select id="uloc" name="users.ulocation">
+        <option value="HYD">Hyderabad</option>
+        <option value="CHN">
+            Chennai
+        </option>
+        <option value="BLR">
+            Bangalore
+        </option>
+    </select>
+</div>
+<div>
+        <label for="urole">Role:</label>
+    <select id="urole" name="users.roledal">
+        <option value="admin">ADMIN</option>
+        <option value="user">
+                USER
+        </option>
+        <option value="owner">
+                OWNER
+        </option>
+    </select>
+</div>
+
+<div>
+    <input type="submit" value="Add New User" />
+</div>
+</form>
+
+            <style>
+    /* wwwroot/css/AddUser.css */
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    h3 {
+        color: #333;
+    }
+
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+</style>

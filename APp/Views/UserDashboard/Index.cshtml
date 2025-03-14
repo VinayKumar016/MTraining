@@ -1,0 +1,63 @@
+﻿@using FooddeliveryApp;
+@model UserDashboardViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<h3>User Dashboard</h3>
+
+<h4>Restaurant List:</h4>
+<table>
+    <thead>
+        <tr>
+            <th>Restaurant Name</th>
+            <th>Restaurant Location</th>
+
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (restaurantDTO restaurantDTO in Model.rest)
+        {
+            <tr>
+                <td>@restaurantDTO.rname</td>
+                <td>@restaurantDTO.rlocation</td>
+
+                <td>
+                    <div>
+                        |
+                        <a href="/PlaceOrder/Index?Id=@restaurantDTO.resid">Show Menu</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h4>My Orders</h4>
+<table>
+    <thead>
+        <tr>
+            <th>Order Id</th>
+            <th>Restaurant Name</th>
+            
+            <th>Order Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ordersDTO orderDTO in Model.orders)
+        {
+            <tr>
+                <td>@orderDTO.orderid</td>
+                <td>@orderDTO.rname</td>
+                
+                <td>@orderDTO.orderstatus</td>
+
+            </tr>
+        }
+
+    </tbody>
+   </table>

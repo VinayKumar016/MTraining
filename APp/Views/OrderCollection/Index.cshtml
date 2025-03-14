@@ -1,0 +1,38 @@
+﻿@model UserDashboardViewModel
+@using FooddeliveryApp;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h3>Order Summary</h3>
+<form>
+    <table>
+        <thead>
+            <tr>
+                <th>Menu Name</th>
+                <th>Menu Price</th>
+                <th>Quantity</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (menuDTO2 menuDTO in Model.newmenu2)
+            {
+                <tr>
+                    <td><input type="text" id="mn" name="newmenu.itemname" value="@menuDTO.itemname" readonly /></td>
+                    <td><input type="number" id="mp" name="newmenu.price" value="@menuDTO.price" readonly /></td>
+                    <td>
+                        <input type="number" name="newmenu.quantity" value="@menuDTO.quantity">
+                    </td>
+                    <input type="hidden" id="mid" name="newmenu.menuid" value="@menuDTO.menuid" />
+                    <input type="hidden" id="mrid" name="newmenu.rid" value="@menuDTO.rid" />
+
+                </tr>
+            }
+
+            <a href="/PlaceOrder/Index">Edit Order</a>
+            <center><a href="/OrderCollection/PlaceOrder">Place Order</a></center>
+    </table>
+</form>

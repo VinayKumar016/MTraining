@@ -1,0 +1,131 @@
+﻿
+@using FooddeliveryApp
+@model AdminDashboardBiewModel
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h3>Edit User</h3>
+<hr />
+@foreach (var item in Model.users)
+{
+    @if (item.userid == ViewBag.Id)
+    {
+        <form method="post">
+            <div>
+                
+                <input type="hidden" id="uid" name="users.userid" value="@ViewBag.Id" />
+            </div>
+            <div>
+                <label for="unm">User Name:</label>
+                <input type="text" id="unm" name="users.uname" value="@item.uname" placeholder="User Display Name" required />
+            </div>
+            <div>
+                <label for="uemail">Email:</label>
+                <input type="email" id="uemail" name="users.email" value="@item.email" placeholder="User Email" required disabled="disabled" />
+            </div>
+            <div>
+                <label for="upassword">Password:</label>
+                <input type="password" id="upassword" name="users.password" value="@item.password" disabled="disabled" placeholder="User Password" required />
+            </div>
+            <div>
+                <label for="uloc">Location:</label>
+                <select id="uloc" name="users.ulocation">
+                    <option value="@item.ulocation">@item.ulocation</option>
+                    <option value="HYD">Hyderabad</option>
+                    <option value="CHN">
+                        Chennai
+                    </option>
+                    <option value="BLR">
+                        Bangalore
+                    </option>
+                </select>
+            </div>
+            <div>
+                <label for="urole">Role:</label>
+                <select id="urole" name="users.roledal">
+                    @if (item.roledal == usersDTO.role.admin)
+                    {
+                        <option value="admin" selected>ADMIN</option>
+                    }
+                    else
+                    {
+                        <option value="admin">ADMIN</option>
+                    }
+
+                    @if (item.roledal == usersDTO.role.user)
+                    {
+                        <option value="user" selected>USER</option>
+                    }
+                    else
+                    {
+                        <option value="user">USER</option>
+                    }
+
+                    @if (item.roledal == usersDTO.role.owner)
+                    {
+                        <option value="owner" selected>OWNER</option>
+                    }
+                    else
+                    {
+                        <option value="owner">OWNER</option>
+                    }
+                </select>
+
+
+            </div>
+            <div>
+                <input type="submit" value="Edit User" />
+            </div>
+        </form>
+    }
+}
+
+<style>
+    /* AddRestaurant.css */
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+
+        form div {
+            margin-bottom: 15px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        form input[type="text"],
+        form select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        form input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            form input[type="submit"]:hover {
+                background-color: #45a049;
+            }
+
+</style>
