@@ -1,0 +1,212 @@
+{
+  "UserInfo": [
+    {
+      "id": "1",
+      "name": "Vinay",
+      "email": "v@v",
+      "password": "123",
+      "role": "ADMIN"
+    },
+    {
+      "id": "2",
+      "name": "Harsh",
+      "email": "h@v",
+      "password": "123",
+      "role": "PMANAGER"
+    },
+    {
+      "id": "3",
+      "name": "Koushik",
+      "email": "k@v",
+      "password": "123",
+      "role": "DEVELOPER"
+    },
+    {
+      "id": "63eb",
+      "name": "chandu",
+      "email": "c@v",
+      "password": "123",
+      "role": "PMANAGER"
+    },
+    {
+      "id": "2712",
+      "name": "KOUSHIK",
+      "email": "k21",
+      "password": "asd",
+      "role": "QA"
+    },
+    {
+      "id": "2713",
+      "name": "Harsh",
+      "email": "h@1",
+      "password": "123",
+      "role": "QA"
+    },
+    {
+      "id": "4207",
+      "name": "Loki",
+      "email": "l@v",
+      "password": "123",
+      "role": "DEVELOPER"
+    },
+    {
+      "id": "14d4",
+      "name": "Vinith",
+      "email": "v@vv",
+      "password": "123",
+      "role": "DEVELOPER"
+    },
+    {
+      "id": "54d8",
+      "name": "Bhuvan",
+      "email": "b@v",
+      "password": "123",
+      "role": "QA"
+    },
+    {
+      "id": "9f42",
+      "name": "Sambram",
+      "email": "s@v",
+      "password": "123",
+      "role": "QA"
+    },
+    {
+      "id": "c43a",
+      "name": "Pavan",
+      "email": "p@v",
+      "password": "123",
+      "role": "QA"
+    }
+  ],
+  "Project": [
+    {
+      "id": "1",
+      "name": "Task Manager",
+      "pm": "2"
+    },
+    {
+      "id": "0f98",
+      "name": "VISIONAI",
+      "pm": "2"
+    },
+    {
+      "id": "643e",
+      "name": "BERT",
+      "pm": "63eb"
+    }
+  ],
+  "ProjectMember": [
+    {
+      "id": "78e5",
+      "projid": "643e",
+      "memid": "2712"
+    },
+    {
+      "id": "e306",
+      "projid": "1",
+      "memid": "4207"
+    },
+    {
+      "id": "cf65",
+      "projid": "1",
+      "memid": "14d4"
+    },
+    {
+      "id": "79bb",
+      "projid": "1",
+      "memid": "54d8"
+    },
+    {
+      "id": "4f0d",
+      "projid": "0f98",
+      "memid": "4207"
+    },
+    {
+      "id": "9b35",
+      "projid": "0f98",
+      "memid": "14d4"
+    },
+    {
+      "id": "d185",
+      "projid": "0f98",
+      "memid": "54d8"
+    },
+    {
+      "id": "1a7d",
+      "projid": "1",
+      "memid": "9f42"
+    }
+  ],
+  "Task": [
+    {
+      "id": "1",
+      "projid": "1",
+      "title": "Analysis",
+      "description": "Prepare the UML",
+      "tasktype": "ACTIVITY",
+      "assignedto": "2713",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "8bf1",
+      "projid": "1",
+      "title": "Analysis",
+      "description": "Prepare the UML",
+      "tasktype": "Activity",
+      "assignedto": "54d8",
+      "status": "Resolved"
+    },
+    {
+      "id": "41e8",
+      "projid": "1",
+      "title": "Debugging",
+      "description": "Debug",
+      "tasktype": "Debug",
+      "assignedto": "54d8",
+      "status": "Resolved"
+    },
+    {
+      "id": "bb10",
+      "projid": "1",
+      "title": "CODE",
+      "description": "Development",
+      "tasktype": "Developmeny",
+      "assignedto": "54d8",
+      "status": "Resolved"
+    },
+    {
+      "id": "7ca5",
+      "projid": "0f98",
+      "title": "Analysis",
+      "description": "Prepare the UML",
+      "tasktype": "Activity",
+      "assignedto": "4207",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "1d45",
+      "projid": "0f98",
+      "title": "CODE",
+      "description": "Development",
+      "tasktype": "Development",
+      "assignedto": "14d4",
+      "status": "ACTIVE"
+    }
+  ],
+  "Comment": [
+    {
+      "id": "1",
+      "taskid": "1",
+      "commentby": "1",
+      "title": "Analysis",
+      "description": "Work in progress"
+    },
+    {
+      "id": "4ebe",
+      "taskid": "ea6e",
+      "commentby": "2712",
+      "title": "Testing",
+      "description": "STARTED"
+    }
+  ]
+}
